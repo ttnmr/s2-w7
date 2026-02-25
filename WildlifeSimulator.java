@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * WildlifeSimulator - Manages population dynamics for multiple species
  * Uses an array of Species objects to store and simulate species data
@@ -8,6 +10,7 @@ public class WildlifeSimulator {
     
     public WildlifeSimulator(int maxSpecies) {
         //TODO
+        Scanner s = new Scanner(new File("species-data.csv"));
     }
     
     /**
