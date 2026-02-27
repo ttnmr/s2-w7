@@ -57,7 +57,8 @@ public class Species {
      * Population change = (births - deaths) but capped at habitat capacity
      */
     public void simulateYear() {
-        //TODO
+        if (population + birthRate - deathRate < habitatCapacity) setPopulation((long) (population + birthRate - deathRate));
+        else setPopulation(habitatCapacity);
     }
     
     /**

@@ -12,12 +12,19 @@ import java.util.*;
  */
 public class WildlifeSimulatorRunner {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // Create simulator with capacity for 20 species
         
-        
+        WildlifeSimulator simulator = new WildlifeSimulator(20);
         // Load species data from CSV
-        
+        Scanner s = new Scanner (new File("species-data.csv"));
+        s.nextLine();
+        while (s.hasNextLine()) {
+            String line = s.nextLine();
+            String[] temp = line.split(",");
+            Species species = new Species(temp[0], Long.parseLong(temp[1]), Double.parseDouble(temp[2]), Double.parseDouble(temp[3]), Long.parseLong(temp[4]), temp[5]);
+            simulator.addSpecies(species);
+        }
         
         System.out.println("\n========================================");
         System.out.println("WILDLIFE POPULATION SIMULATOR");
@@ -61,7 +68,7 @@ public class WildlifeSimulatorRunner {
      */
     private static void simulateAndRecordData(WildlifeSimulator simulator, int years, String filename) {
         //TODO
-    
+        
     }    
     
 }

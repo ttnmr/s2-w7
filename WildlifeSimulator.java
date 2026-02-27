@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -8,38 +10,48 @@ public class WildlifeSimulator {
     private Species[] species;
     private int speciesCount;
     
-    public WildlifeSimulator(int maxSpecies) {
-        //TODO
-        Scanner s = new Scanner(new File("species-data.csv"));
+    public WildlifeSimulator(int maxSpecies) throws FileNotFoundException {
+        species = new Species[maxSpecies];
     }
     
     /**
      * Add a species to the simulator
      */
     public void addSpecies(Species s) {
-        //TODO
+        if (species.length < (int) (0.8*speciesCount)) {
+            Species[] temp = new Species[species.length*2];
+            for (int i = 0; i < speciesCount; i++) {
+                temp[i] = species[i];
+            }
+            species = temp;
+        }
+        species[speciesCount] = s;
+        speciesCount++;
     }
     
     /**
      * Simulate one year of population changes for all species
      */
     public void simulateYear() {
-        //TODO
+        for (Species s: species) {
+            s.simulateYear();
+        }
     }
     
     /**
      * Simulate multiple years
      */
     public void simulate(int years) {
-        //TODO
+        for (int i = 0; i < years; i++) {
+            simulateYear();
+        }
     }
     
     /**
      * Get species at given index
      */
     public Species getSpecies(int index) {
-        //TODO
-        return null;
+        return species[index];
     }
     
     /**
@@ -53,24 +65,35 @@ public class WildlifeSimulator {
      * Get total wildlife count across all species
      */
     public double getTotalPopulation() {
-        //TODO
-        return 0.0;
+        Long total = (long) 0; 
+        for (int i = 0; i < speciesCount; i++) {
+            total += species[i].getPopulation();
+        }
+        return total;
     }
     
     /**
      * Find the species with largest population
      */
     public int getMostPopulousIndex() {
-        //TODO
-        return -1;
+        Long max = (long) 0;
+        int idx = -1;
+        for (int i = 0; i < speciesCount; i++) {
+            if (species[i].getPopulation() > max) idx = i;
+        }
+        return idx;
     }
     
     /**
      * Find the species with smallest population (most endangered)
      */
     public int getMostEndangeredIndex() {
-        //TODO
-        return -1;
+        Long min = (long) 0;
+        int idx = -1;
+        for (int i = 0; i < speciesCount; i++) {
+            if (species[i].getPopulation() < min) idx = i;
+        }
+        return idx;
     }
     
     public int getSpeciesCount() {
